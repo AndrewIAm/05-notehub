@@ -1,9 +1,10 @@
-export interface Movie {
-  id: number;
-  poster_path: string;
-  backdrop_path: string;
+export type NoteTag = 'Todo' | 'Work' | 'Personal' | 'Meeting' | 'Shopping';
+
+export interface Note {
+  id: string;
   title: string;
-  overview: string;
-  release_date: string;
-  vote_average: number;
+  content: string;
+  tag: NoteTag;
+  createdAt: string;
+  updatedAt: string;
 }
