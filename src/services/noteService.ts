@@ -15,9 +15,7 @@ apiClient.interceptors.request.use(config => {
 
 export interface FetchNotesResponse {
   notes: Note[];
-  totalNotes: number;
   totalPages: number;
-  currentPage: number;
 }
 
 export interface FetchNotesParams {

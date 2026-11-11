@@ -9,7 +9,6 @@ interface ModalProps {
 }
 
 export default function Modal({ isOpen, onClose, children }: ModalProps) {
-  // Закриття по Escape
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -17,8 +16,13 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
 
     if (isOpen) {
       window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
     }
-    return () => window.removeEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
@@ -30,11 +34,10 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
       role="dialog"
       aria-modal="true"
     >
-      {/* зупиняємо спливання події, щоб клік по самому вікну його не закривав */}
       <div className={css.modal} onClick={e => e.stopPropagation()}>
         {children}
       </div>
     </div>,
-    document.body // Рендеримо в body
+    document.body
   );
 }

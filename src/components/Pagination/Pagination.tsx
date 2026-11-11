@@ -1,18 +1,19 @@
 import ReactPaginate from 'react-paginate';
 import css from './Pagination.module.css';
 
-// 1. Створюємо безпечну обгортку, яка дістає компонент незалежно від того, як його зібрав Vite
 const PaginateComponent =
   (ReactPaginate as unknown as { default: typeof ReactPaginate }).default ||
   ReactPaginate;
 
 interface PaginationProps {
   pageCount: number;
+  currentPage: number; // Додали пропс для поточної сторінки
   onPageChange: (selectedPage: number) => void;
 }
 
 export default function Pagination({
   pageCount,
+  currentPage,
   onPageChange,
 }: PaginationProps) {
   const handlePageClick = (event: { selected: number }) => {
@@ -21,6 +22,7 @@ export default function Pagination({
 
   return (
     <PaginateComponent
+      forcePage={currentPage - 1}
       previousLabel="<"
       nextLabel=">"
       pageCount={pageCount}
